@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "ChaIiijOn3YXQppZc831PORMK2U=",
+			"path": "github.com/gin-gonic/gin",
+			"revision": "a712f77d7aaec7eb4766a663924aaa4e54d3fe70",
+			"revisionTime": "2017-12-29T09:10:28Z"
+		},
+		{
+			"checksumSHA1": "1D8GzeoFGUs5FZOoyC2DpQg8c5Y=",
+			"path": "gopkg.in/mgo.v2",
+			"revision": "3f83fa5005286a7fe593b055f0d7771a7dce4655",
+			"revisionTime": "2016-08-18T02:01:20Z"
+		}
+	],
+	"rootPath": "github.com/ISpoonJelly/go_movie_challenger"
+}
