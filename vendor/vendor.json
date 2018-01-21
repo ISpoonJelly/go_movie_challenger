@@ -3,18 +3,6 @@
 	"ignore": "test",
 	"package": [
 		{
-			"checksumSHA1": "CszUg5NhKLulJ6WLdMY6+kpMiCQ=",
-			"path": "github.com/ISpoonJelly/go_movie_challenger",
-			"revision": "d2d0a584a660d59a2adce61702df3821e71b7e4b",
-			"revisionTime": "2018-01-21T14:09:47Z"
-		},
-		{
-			"checksumSHA1": "IdLgpOo8xeE5DX1Neoj44nakMRE=",
-			"path": "github.com/ISpoonJelly/go_movie_challenger/models",
-			"revision": "d2d0a584a660d59a2adce61702df3821e71b7e4b",
-			"revisionTime": "2018-01-21T14:09:47Z"
-		},
-		{
 			"checksumSHA1": "QeKwBtN2df+j+4stw3bQJ6yO4EY=",
 			"path": "github.com/gin-contrib/sse",
 			"revision": "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae",
@@ -57,13 +45,13 @@
 			"revisionTime": "2017-11-07T05:05:31Z"
 		},
 		{
-			"checksumSHA1": "xgL6TWhgkL/ULE2olP+ZA6gbOno=",
+			"checksumSHA1": "s+pk+d9XCjBkyUdHOwdB39FHaPQ=",
 			"path": "github.com/ugorji/go/codec",
 			"revision": "9831f2c3ac1068a78f50999a30db84270f647af6",
 			"revisionTime": "2018-01-12T14:19:27Z"
 		},
 		{
-			"checksumSHA1": "To5eWGIjHQcw3pQ0N1uFepqaxmE=",
+			"checksumSHA1": "RzTHnaJW2cMyWO/o7dGgyehjrAg=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "739734461d1c916b6c72a63d7efda2b27edb369f",
 			"revisionTime": "2017-07-07T11:51:12Z"
