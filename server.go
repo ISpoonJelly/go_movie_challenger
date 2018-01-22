@@ -13,8 +13,8 @@ func main() {
 	defer session.Close()
 
 	sessionColl := session.DB("movies").C("sessions")
-	store := sessions.NewMongoStore(sessionColl, 3600, true, []byte("secret"))
-	router.Use(sessions.Sessions("user-session", store))
+	store := sessions.NewMongoStore(sessionColl, 3600, true, []byte(""))
+	router.Use(sessions.Sessions("mysession", store))
 
 	InitRoutes(router)
 
