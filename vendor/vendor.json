@@ -3,6 +3,24 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "94XIv9qi7UCLVJmps9E+N/yKU4A=",
+			"path": "github.com/ISpoonJelly/go_movie_challenger",
+			"revision": "31a0ec41cac4cea7816bf0a8f0a7d0c8b7de0aa9",
+			"revisionTime": "2018-01-21T16:42:28Z"
+		},
+		{
+			"checksumSHA1": "l7h2FVSasE4V3V4TZIP86/Tudow=",
+			"path": "github.com/ISpoonJelly/go_movie_challenger/controllers",
+			"revision": "31a0ec41cac4cea7816bf0a8f0a7d0c8b7de0aa9",
+			"revisionTime": "2018-01-21T16:42:28Z"
+		},
+		{
+			"checksumSHA1": "BbBp8IUK+Dpl8fr3KWwxfrkcAcw=",
+			"path": "github.com/ISpoonJelly/go_movie_challenger/models",
+			"revision": "31a0ec41cac4cea7816bf0a8f0a7d0c8b7de0aa9",
+			"revisionTime": "2018-01-21T16:42:28Z"
+		},
+		{
 			"checksumSHA1": "QeKwBtN2df+j+4stw3bQJ6yO4EY=",
 			"path": "github.com/gin-contrib/sse",
 			"revision": "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae",

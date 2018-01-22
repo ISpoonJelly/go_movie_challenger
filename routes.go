@@ -10,7 +10,11 @@ import (
 
 func InitRoutes(router *gin.Engine) {
 	router.GET("/status", getStatus)
-	router.GET("/people", controllers.GetPeople)
+
+	//User controllers
+	router.GET("/user", controllers.GetUsers)
+	router.GET("/user/:username", controllers.GetUser)
+	router.POST("/user", controllers.CreateUser)
 }
 
 func getStatus(c *gin.Context) {
