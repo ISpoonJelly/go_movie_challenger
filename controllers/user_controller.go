@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/ISpoonJelly/go_movie_challenger/models"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/gin-gonic/gin"
 	mgo "gopkg.in/mgo.v2"
@@ -31,9 +32,17 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	err := coll.Insert(user)
+	hashed, err := hashPassword(user.Password)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, bson.M{"e2": err})
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
+	user.PasswordHash = hashed
+	user.Password = ""
+
+	err = coll.Insert(user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
 
@@ -76,4 +85,14 @@ func GetUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, result)
+}
+
+func hashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+func checkPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
