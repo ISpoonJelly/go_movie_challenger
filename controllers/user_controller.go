@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/ISpoonJelly/go_movie_challenger/models"
+	"github.com/gin-contrib/sessions"
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func InitUserController(router *gin.Engine) {
 	router.GET("/user/:username", getUser)
 	router.POST("/user", createUser)
 	router.POST("/login", loginUser)
+	router.GET("/current", loggedIn)
 }
 
 func createUser(c *gin.Context) {
@@ -70,7 +72,18 @@ func loginUser(c *gin.Context) {
 		return
 	}
 
-	//m3ana el user
+	session := sessions.Default(c)
+	session.Set("user", user.ID.String())
+	session.Save()
+
+	c.JSON(http.StatusOK, user.ID)
+}
+
+func loggedIn(c *gin.Context) {
+	session := sessions.Default(c)
+	user := session.Get("user")
+
+	c.JSON(http.StatusOK, user)
 }
 
 func getUser(c *gin.Context) {
@@ -103,7 +116,7 @@ func getUsers(c *gin.Context) {
 }
 
 func hashPassword(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	return string(bytes), err
 }
 
