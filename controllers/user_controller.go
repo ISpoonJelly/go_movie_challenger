@@ -13,13 +13,11 @@ import (
 
 func CreateUser(c *gin.Context) {
 	db, ok := c.Keys["DB"].(*mgo.Database)
-
 	if !ok {
 		panic("db not found")
 	}
 
 	var user models.User
-
 	if err := c.ShouldBind(&user); err != nil {
 		c.JSON(http.StatusBadRequest, bson.M{"message": "Invalid parameters"})
 		return
@@ -27,7 +25,7 @@ func CreateUser(c *gin.Context) {
 
 	coll := db.C("user")
 
-	if err := db.C("user").Find(bson.M{"username": user.Username}).One(nil); err == nil {
+	if err := coll.Find(bson.M{"username": user.Username}).One(nil); err == nil {
 		c.JSON(http.StatusBadRequest, bson.M{"message": "User already registered"})
 		return
 	}
@@ -47,12 +45,37 @@ func CreateUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, user)
-	return
+}
+
+func LoginUser(c *gin.Context) {
+	db, ok := c.Keys["DB"].(*mgo.Database)
+	if !ok {
+		panic("db not found")
+	}
+
+	var login models.LoginUser
+
+	if err := c.ShouldBind(&login); err != nil {
+		c.JSON(http.StatusBadRequest, bson.M{"message": "Invalid parameters"})
+		return
+	}
+
+	var user models.User
+	if err := db.C("user").Find(bson.M{"username": login.Username}).One(&user); err != nil {
+		c.JSON(http.StatusUnauthorized, bson.M{"message": "User not found"})
+		return
+	}
+
+	if !checkPasswordHash(login.Password, user.PasswordHash) {
+		c.JSON(http.StatusUnauthorized, bson.M{"message": "Wrong Credentials"})
+		return
+	}
+
+	//m3ana el user
 }
 
 func GetUser(c *gin.Context) {
 	db, ok := c.Keys["DB"].(*mgo.Database)
-
 	if !ok {
 		panic("db not found")
 	}
@@ -71,7 +94,6 @@ func GetUser(c *gin.Context) {
 
 func GetUsers(c *gin.Context) {
 	db, ok := c.Keys["DB"].(*mgo.Database)
-
 	if !ok {
 		panic("db not found")
 	}
@@ -92,7 +114,7 @@ func hashPassword(password string) (string, error) {
 	return string(bytes), err
 }
 
-func checkPasswordHash(password, hash string) bool {
+func checkPasswordHash(password string, hash string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
 	return err == nil
 }
