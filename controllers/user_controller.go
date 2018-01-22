@@ -11,11 +11,15 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func CreateUser(c *gin.Context) {
-	db, ok := c.Keys["DB"].(*mgo.Database)
-	if !ok {
-		panic("db not found")
-	}
+func InitUserController(router *gin.Engine) {
+	router.GET("/user", getUsers)
+	router.GET("/user/:username", getUser)
+	router.POST("/user", createUser)
+	router.POST("/login", loginUser)
+}
+
+func createUser(c *gin.Context) {
+	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
 	var user models.User
 	if err := c.ShouldBind(&user); err != nil {
@@ -23,9 +27,7 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	coll := db.C("user")
-
-	if err := coll.Find(bson.M{"username": user.Username}).One(nil); err == nil {
+	if err := dbColl.Find(bson.M{"username": user.Username}).One(nil); err == nil {
 		c.JSON(http.StatusBadRequest, bson.M{"message": "User already registered"})
 		return
 	}
@@ -38,7 +40,7 @@ func CreateUser(c *gin.Context) {
 	user.PasswordHash = hashed
 	user.Password = ""
 
-	err = coll.Insert(user)
+	err = dbColl.Insert(user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return
@@ -47,11 +49,8 @@ func CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-func LoginUser(c *gin.Context) {
-	db, ok := c.Keys["DB"].(*mgo.Database)
-	if !ok {
-		panic("db not found")
-	}
+func loginUser(c *gin.Context) {
+	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
 	var login models.LoginUser
 
@@ -61,7 +60,7 @@ func LoginUser(c *gin.Context) {
 	}
 
 	var user models.User
-	if err := db.C("user").Find(bson.M{"username": login.Username}).One(&user); err != nil {
+	if err := dbColl.Find(bson.M{"username": login.Username}).One(&user); err != nil {
 		c.JSON(http.StatusUnauthorized, bson.M{"message": "User not found"})
 		return
 	}
@@ -74,15 +73,12 @@ func LoginUser(c *gin.Context) {
 	//m3ana el user
 }
 
-func GetUser(c *gin.Context) {
-	db, ok := c.Keys["DB"].(*mgo.Database)
-	if !ok {
-		panic("db not found")
-	}
+func getUser(c *gin.Context) {
+	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
 	username := c.Param("username")
 	var result models.User
-	err := db.C("user").Find(bson.M{"username": username}).One(&result)
+	err := dbColl.Find(bson.M{"username": username}).One(&result)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
@@ -92,14 +88,11 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
-func GetUsers(c *gin.Context) {
-	db, ok := c.Keys["DB"].(*mgo.Database)
-	if !ok {
-		panic("db not found")
-	}
+func getUsers(c *gin.Context) {
+	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
 	var result []models.User
-	err := db.C("user").Find(nil).All(&result)
+	err := dbColl.Find(nil).All(&result)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, bson.M{"error": err})

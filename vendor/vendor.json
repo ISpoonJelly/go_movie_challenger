@@ -3,6 +3,42 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "nB4SVW6evKR8QoZ9ca9z6yZ7kGU=",
+			"path": "github.com/boj/redistore",
+			"revision": "4562487a4bee9a7c272b72bfaeda4917d0a47ab9",
+			"revisionTime": "2017-04-19T03:05:11Z"
+		},
+		{
+			"checksumSHA1": "fvVoeETRxg13N2GlxydO+5slZdM=",
+			"path": "github.com/bradfitz/gomemcache/memcache",
+			"revision": "1952afaa557dc08e8e0d89eafab110fb501c1a2b",
+			"revisionTime": "2017-02-08T21:30:04Z"
+		},
+		{
+			"checksumSHA1": "YMkb1sYwEWuEkcBxlvH4R1pdICM=",
+			"path": "github.com/bradleypeabody/gorilla-sessions-memcache",
+			"revision": "75ee37df8664a47cd5d9eb84d41e1f2b08086893",
+			"revisionTime": "2017-05-03T20:53:33Z"
+		},
+		{
+			"checksumSHA1": "2UmMbNHc8FBr98mJFN1k8ISOIHk=",
+			"path": "github.com/garyburd/redigo/internal",
+			"revision": "d1ed5c67e5794de818ea85e6b522fda02623a484",
+			"revisionTime": "2017-12-29T01:14:44Z"
+		},
+		{
+			"checksumSHA1": "sc/XC7agvewnB1AGXMGZRkVzM8c=",
+			"path": "github.com/garyburd/redigo/redis",
+			"revision": "d1ed5c67e5794de818ea85e6b522fda02623a484",
+			"revisionTime": "2017-12-29T01:14:44Z"
+		},
+		{
+			"checksumSHA1": "icGKF+8dcpfw8rvpvg5Zpi3dgaM=",
+			"path": "github.com/gin-contrib/sessions",
+			"revision": "cccdeef56346e7037ca92de250c2b55ef5e7ffe3",
+			"revisionTime": "2017-09-17T02:14:46Z"
+		},
+		{
 			"checksumSHA1": "QeKwBtN2df+j+4stw3bQJ6yO4EY=",
 			"path": "github.com/gin-contrib/sse",
 			"revision": "22d885f9ecc78bf4ee5d72b937e4bbcdc58e8cae",
@@ -39,19 +75,55 @@
 			"revisionTime": "2016-11-17T03:31:26Z"
 		},
 		{
+			"checksumSHA1": "g/V4qrXjUGG9B+e3hB+4NAYJ5Gs=",
+			"path": "github.com/gorilla/context",
+			"revision": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42",
+			"revisionTime": "2016-08-17T18:46:32Z"
+		},
+		{
+			"checksumSHA1": "ucTBCc7dDRKLGPsYfAzu/Gq63qA=",
+			"path": "github.com/gorilla/securecookie",
+			"revision": "e59506cc896acb7f7bf732d4fdf5e25f7ccd8983",
+			"revisionTime": "2017-02-24T19:38:04Z"
+		},
+		{
+			"checksumSHA1": "3J5zUreQU8XhMr1ThFXV85VwH+g=",
+			"path": "github.com/gorilla/sessions",
+			"revision": "fe21b6a095cd8a9d41cc7f412e13d35c130383f3",
+			"revisionTime": "2018-01-15T17:38:07Z"
+		},
+		{
+			"checksumSHA1": "MKyEkCX61KaYI8EWK0obIM2yeN8=",
+			"path": "github.com/kidstuff/mongostore",
+			"revision": "256d65ac5b0e35e7c5ebb3f175c0bed1e5c2b253",
+			"revisionTime": "2015-10-02T15:23:36Z"
+		},
+		{
 			"checksumSHA1": "w5RcOnfv5YDr3j2bd1YydkPiZx4=",
 			"path": "github.com/mattn/go-isatty",
 			"revision": "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c",
 			"revisionTime": "2017-11-07T05:05:31Z"
 		},
 		{
-			"checksumSHA1": "s+pk+d9XCjBkyUdHOwdB39FHaPQ=",
+			"checksumSHA1": "xgL6TWhgkL/ULE2olP+ZA6gbOno=",
 			"path": "github.com/ugorji/go/codec",
 			"revision": "9831f2c3ac1068a78f50999a30db84270f647af6",
 			"revisionTime": "2018-01-12T14:19:27Z"
 		},
 		{
-			"checksumSHA1": "RzTHnaJW2cMyWO/o7dGgyehjrAg=",
+			"checksumSHA1": "vE43s37+4CJ2CDU6TlOUOYE0K9c=",
+			"path": "golang.org/x/crypto/bcrypt",
+			"revision": "dc137beb6cce2043eb6b5f223ab8bf51c32459f4",
+			"revisionTime": "2017-01-30T16:50:24Z"
+		},
+		{
+			"checksumSHA1": "JsJdKXhz87gWenMwBeejTOeNE7k=",
+			"path": "golang.org/x/crypto/blowfish",
+			"revision": "dc137beb6cce2043eb6b5f223ab8bf51c32459f4",
+			"revisionTime": "2017-01-30T16:50:24Z"
+		},
+		{
+			"checksumSHA1": "To5eWGIjHQcw3pQ0N1uFepqaxmE=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "739734461d1c916b6c72a63d7efda2b27edb369f",
 			"revisionTime": "2017-07-07T11:51:12Z"
