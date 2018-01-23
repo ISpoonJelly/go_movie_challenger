@@ -23,3 +23,7 @@ type Movie struct {
   overview            string    `json:"release_date"`
   release_date        string    `json:"release_date"`
 }
+
+type Genre_ids struct {
+  Genre_ids   []int   `json:"genre_ids"`
+}
