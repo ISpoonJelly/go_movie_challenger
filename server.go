@@ -9,6 +9,7 @@ import (
 func main() {
 	router := gin.Default()
 
+	InitAPI(router)
 	session := InitDB(router)
 	defer session.Close()
 
