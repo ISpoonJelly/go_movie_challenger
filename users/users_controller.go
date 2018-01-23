@@ -16,7 +16,6 @@ func Init(router *gin.Engine) {
 	router.GET("/user/:username", getUser)
 	router.POST("/user", createUser)
 	router.POST("/login", loginUser)
-	router.GET("/current", loggedIn)
 }
 
 func createUser(c *gin.Context) {
@@ -75,15 +74,15 @@ func loginUser(c *gin.Context) {
 	session.Set("user", user.ID.String())
 	session.Save()
 
-	c.JSON(http.StatusOK, user.ID)
+	c.JSON(http.StatusOK, "")
 }
 
-func loggedIn(c *gin.Context) {
-	session := sessions.Default(c)
-	user := session.Get("user")
+// func loggedIn(c *gin.Context) {
+// 	session := sessions.Default(c)
+// 	user := session.Get("user")
 
-	c.JSON(http.StatusOK, user)
-}
+// 	c.JSON(http.StatusOK, user)
+// }
 
 func getUser(c *gin.Context) {
 	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
