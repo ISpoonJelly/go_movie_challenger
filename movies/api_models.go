@@ -17,7 +17,7 @@ type Discover struct {
 	Page         int             `json:"page"`
 	TotalResults int             `json:"total_results"`
 	TotalPages   int             `json:"total_pages"`
-	Movie        []DiscoverMovie `json:"results"`
+	Movies       []DiscoverMovie `json:"results"`
 }
 
 type DiscoverMovie struct {

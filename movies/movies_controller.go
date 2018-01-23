@@ -1,10 +1,11 @@
 package movies
 
 import (
-	"fmt"
+	"net/http"
 
 	"github.com/dghubble/sling"
 	"github.com/gin-gonic/gin"
+	"gopkg.in/mgo.v2/bson"
 )
 
 func Init(router *gin.Engine) {
@@ -17,13 +18,13 @@ func getGenres(c *gin.Context) {
 
 	apiParams := APIParams{APIKey: key}
 
-	genres := new(Genre)
+	genres := new(Genres)
 	tmdbErr := new(TmdbError)
-	resp, err := api.Get("genre/movie/list").QueryStruct(apiParams).Receive(&genres, &tmdbErr)
-
-	fmt.Println("REQUEST: ", resp.Request, "\n\nRESPONSE: ", resp, "\n\nERR: ", err, "\n\nGENRES: ", genres, "\n\nTMDBERR: ", tmdbErr)
+	_, err := api.Get("genre/movie/list").QueryStruct(apiParams).Receive(genres, tmdbErr)
 
 	if err != nil {
-		panic(err)
+		c.JSON(http.StatusInternalServerError, bson.M{"error": err})
 	}
+
+	c.JSON(http.StatusOK, genres)
 }
