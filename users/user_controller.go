@@ -1,9 +1,8 @@
-package controllers
+package users
 
 import (
 	"net/http"
 
-	"github.com/ISpoonJelly/go_movie_challenger/models"
 	"github.com/gin-contrib/sessions"
 	"golang.org/x/crypto/bcrypt"
 
@@ -12,7 +11,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-func InitUserController(router *gin.Engine) {
+func Init(router *gin.Engine) {
 	router.GET("/user", getUsers)
 	router.GET("/user/:username", getUser)
 	router.POST("/user", createUser)
@@ -23,7 +22,7 @@ func InitUserController(router *gin.Engine) {
 func createUser(c *gin.Context) {
 	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
-	var user models.User
+	var user User
 	if err := c.ShouldBind(&user); err != nil {
 		c.JSON(http.StatusBadRequest, bson.M{"message": "Invalid parameters"})
 		return
@@ -54,14 +53,14 @@ func createUser(c *gin.Context) {
 func loginUser(c *gin.Context) {
 	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
-	var login models.LoginUser
+	var login LoginUser
 
 	if err := c.ShouldBind(&login); err != nil {
 		c.JSON(http.StatusBadRequest, bson.M{"message": "Invalid parameters"})
 		return
 	}
 
-	var user models.User
+	var user User
 	if err := dbColl.Find(bson.M{"username": login.Username}).One(&user); err != nil {
 		c.JSON(http.StatusUnauthorized, bson.M{"message": "User not found"})
 		return
@@ -90,7 +89,7 @@ func getUser(c *gin.Context) {
 	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
 	username := c.Param("username")
-	var result models.User
+	var result User
 	err := dbColl.Find(bson.M{"username": username}).One(&result)
 
 	if err != nil {
@@ -104,7 +103,7 @@ func getUser(c *gin.Context) {
 func getUsers(c *gin.Context) {
 	dbColl := c.MustGet("DB").(*mgo.Database).C("users")
 
-	var result []models.User
+	var result []User
 	err := dbColl.Find(nil).All(&result)
 
 	if err != nil {
