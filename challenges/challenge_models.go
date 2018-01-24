@@ -1,10 +1,13 @@
 package challenges
 
+import "gopkg.in/mgo.v2/bson"
+
 type Challenge struct {
-  Page          int    `json:"page"`
-  Total_results int       `json:"total_results"`
-  Total_pages   int       `json:"total_pages"`
-  Results       []Movie   `json:"results"`
+  Page          int               `json:"page"`
+  Total_results int               `json:"total_results"`
+  Total_pages   int               `json:"total_pages"`
+  Results       []Movie           `json:"results"`
+  User          bson.ObjectId     `json:"-" bson:"_id"`
 }
 
 type Movie struct {
