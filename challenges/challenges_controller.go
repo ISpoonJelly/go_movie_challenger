@@ -38,10 +38,13 @@ func getChallenge(c *gin.Context) {
   // DEBUGGING --> FORMATTING QUERY STRING FOR WITH_GENRES
   fmt.Println("QUERY GENRES --> ", genres_query_string)
 
+  sorting_query_string := "&sort_by=vote_average.desc"
+  voting_count_query_string := "&vote_count.gte=1000"
+  req_params := genres_query_string + sorting_query_string + voting_count_query_string
 
   challenge := new(Challenge)
   tmdbErr := new(movies.TmdbError)
-  _, err := api.Get("discover/movie?" + genres_query_string).QueryStruct(apiParams).Receive(challenge, tmdbErr)
+  _, err := api.Get("discover/movie?" + req_params).QueryStruct(apiParams).Receive(challenge, tmdbErr)
 
   if err != nil {
 		c.JSON(http.StatusInternalServerError, bson.M{"error": err})
