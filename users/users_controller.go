@@ -71,7 +71,7 @@ func loginUser(c *gin.Context) {
 	}
 
 	session := sessions.Default(c)
-	session.Set("user", user.ID.String())
+	session.Set("user", user.ID)
 	session.Save()
 
 	c.JSON(http.StatusOK, "")

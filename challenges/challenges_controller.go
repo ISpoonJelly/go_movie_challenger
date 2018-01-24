@@ -3,11 +3,14 @@ package challenges
 import (
   "strconv"
   "fmt"
+
+  mgo "gopkg.in/mgo.v2"
 	"net/http"
 	"github.com/dghubble/sling"
 	"github.com/gin-gonic/gin"
   "github.com/ISpoonJelly/go_movie_challenger/movies"
 	"gopkg.in/mgo.v2/bson"
+  "github.com/gin-contrib/sessions"
 )
 
 func Init(router *gin.Engine) {
@@ -42,6 +45,7 @@ func getChallenge(c *gin.Context) {
   voting_count_query_string := "&vote_count.gte=1000"
   req_params := genres_query_string + sorting_query_string + voting_count_query_string
 
+  // check if there is an existing challenge for such user
   challenge := new(Challenge)
   tmdbErr := new(movies.TmdbError)
   _, err := api.Get("discover/movie?" + req_params).QueryStruct(apiParams).Receive(challenge, tmdbErr)
@@ -49,6 +53,22 @@ func getChallenge(c *gin.Context) {
   if err != nil {
 		c.JSON(http.StatusInternalServerError, bson.M{"error": err})
 	} else {
+    insertChallengeDB(c, challenge)
     c.JSON(http.StatusOK, challenge)
+  }
+}
+
+
+func insertChallengeDB(c *gin.Context, challenge *Challenge) {
+  session := sessions.Default(c)
+  id := session.Get("user").(string)
+
+  challenge.User = id
+  challengeCollDB := c.MustGet("DB").(*mgo.Database).C("challenges")
+  err := challengeCollDB.Insert(challenge)
+  if err != nil {
+    fmt.Println("ERR --> ", err)
+    c.JSON(http.StatusInternalServerError, err)
+		return
   }
 }
